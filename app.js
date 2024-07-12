@@ -2,6 +2,7 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const path = require('path');
+const dotenv = require('dotenv');
 
 const app = express();
 
@@ -50,11 +51,13 @@ app.post('/signup', (req, res) => {
     // request to MailChimp API
     // will take in options and a function
 
+    dotenv.config();
+
     const options = {
         url: 'https://us17.api.mailchimp.com/3.0/lists/5a755257c6',
         method: 'POST',
         headers: {
-            Authorization: `auth ${process.env.MAILCHIMP_KEY}`
+            Authorization: `Bearer ${process.env.mail_key}`
         },
         body: postData
     }
@@ -71,7 +74,7 @@ app.post('/signup', (req, res) => {
                 res.redirect('/success.html');
             } else {
                 res.redirect('/fail.html');
-                console.log(`error with API status code`)
+                console.log(`error with API status code:`, response.statusCode)
             }
         }
     });

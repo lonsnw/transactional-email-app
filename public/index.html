@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/vapor/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/b1e2f0af42.js" crossorigin="anonymous"></script>    <title>Mewsletter signup</title>
+</head>
+<body>
+    <div class="container">
+      <section class="row mt-5 text-center">
+        <div class="col-md-6 m-auto">
+          <h1><i class="fa-solid fa-cat"></i></h1>
+          <h1 class="display-4">Mewsletter Signup</h1>
+          <p class="lead">
+            Enter your info to get monthly updates about our CEO, Waffle
+          </p>
+          <!-- This is how we're handling this on the server: POST request to /signup -->
+          <form action="/signup" method="POST">
+            <div class="form-group">
+              <input type="text" name="firstName" id="first-name" class="form-control" placeholder="First Name"
+                required />
+            </div>
+            <div class="form-group">
+              <input type="text" name="lastName" id="last-name" class="form-control" placeholder="Last Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" id="email" class="form-control" placeholder="Email" required />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary btn-block">
+              Sign Upspspsps
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </body>
+  
+</html>

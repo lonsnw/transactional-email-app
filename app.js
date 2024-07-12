@@ -54,6 +54,13 @@ app.post('/signup', (req, res) => {
     dotenv.config();
 
     const options = {
+        // "us17" in the URL is my assigned Data Center
+        // the data center can be found at the start of your URL when you're on your dashboard
+        // https://mailchimp.com/developer/marketing/docs/fundamentals/#connecting-to-the-api
+        // "5a755257c6" in the URL is my Audience ID (or list_id)
+        // the audience ID can be found from your Dashboard:
+        // "Audience" > "Audience dashboard" > "Manage Audience" > "Settings" and it's at the bottom of the page
+        // or follow these steps: https://mailchimp.com/help/find-audience-id/ 
         url: 'https://us17.api.mailchimp.com/3.0/lists/5a755257c6',
         method: 'POST',
         headers: {

@@ -15,12 +15,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Signup route
 app.post('/signup', (req, res) => {
     const {
-        firstName, 
-        lastName, 
+        keyword, 
+        interval, 
+        name,
         email
     } = req.body;
     // Validating form
-    if(!firstName || !lastName || !email) {
+    if(!keyword || !interval || !name || !email) {
         res.redirect('/fail.html');
         return;
     }
@@ -87,7 +88,7 @@ app.post('/signup', (req, res) => {
     });
 })
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, console.log(`Server started on ${PORT}`));
 

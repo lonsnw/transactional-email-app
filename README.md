@@ -1,4 +1,4 @@
-# Mewsletter app
+# gif me a break app
 
 This is a very simple app built to test adding recipients to a MailChimp newsletter using the MailChimp marketing API.
 

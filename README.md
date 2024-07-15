@@ -1,8 +1,8 @@
-# gif me a break app
+# momentary paws app
 
-This is a very simple app built to test adding recipients to a MailChimp newsletter using the MailChimp marketing API.
+This is a very simple app built to test sending an inspirational HTML email using the MailChimp transactional API.
 
-The app is built using HTML and JavaScript.  I followed [this tutorial](https://www.youtube.com/watch?v=Gjk25N7WFkI) and adjusted as needed to hide the API key and to make changes as needed for the updates that MailChimp has made.
+The app is built using HTML and JavaScript.  I built on the [MailChimp marketing app I built](https://github.com/lonsnw/mailchimp-app) and used the MailChimp docs to use the transactional API instead of the marketing API used in the newsletter app.
 
 I did not ultimately use the MailChimp library, though I did install it.
 
@@ -19,6 +19,8 @@ I did not ultimately use the MailChimp library, though I did install it.
 * Bootswatch
 * Font Awesome
 
-## Screenshot
+## Screenshots
 
-<center><image src=public/images/mewsletter.png width=80%></center>
+
+
+<center><image src=public/images/can-do-it-pink.gif width=80%></center>

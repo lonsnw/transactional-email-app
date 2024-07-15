@@ -12,61 +12,94 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Static folder to serve HTML files from public folder
 app.use(express.static(path.join(__dirname, 'public')))
 
-// Signup route
-app.post('/signup', (req, res) => {
+// // Send route
+// app.post('/send', (req, res) => {
+//     const {
+    //     senderName, 
+    //     recipientName, 
+    //     email
+    // } = req.body;
+    // // Validating form
+    // if(!senderName || !recipientName || !email) {
+    //     res.redirect('/fail.html');
+    //     return;
+//     }
+
+//     // Building request data -- I'm guessing this based on the newsletter app and 
+//     // the sample call MailChimp gives https://mailchimp.com/developer/transactional/guides/send-first-email/ 
+    
+//     const mailchimp = require("mailchimp_transactional")(
+//         `${process.env.mail_key}`
+//       );
+
+//     const message = {
+//         from_email: "gif@lons.dev",
+//         subject: `${senderName} is thinking of you!`,
+//         text: `${recipientName}, you're the best.`,
+//         to: [
+//             {
+//                 email: email,
+//                 type: "to"
+//             }
+//         ]
+//     };
+
+//     async function run() {
+//         const response = await mailchimp.messages.send({
+//           message
+//         });
+//         console.log(response);
+//       }
+//       run();
+
+      
+// })
+
+// Email route
+app.post('/email', (req, res) => {
     const {
-        keyword, 
-        interval, 
-        name,
+        senderName, 
+        recipientName, 
         email
     } = req.body;
     // Validating form
-    if(!keyword || !interval || !name || !email) {
+    if(!senderName || !recipientName || !email) {
         res.redirect('/fail.html');
         return;
     }
 
+    dotenv.config();
+
     // Building request data
-    // Body parameters dictated by MailChimp: https://mailchimp.com/developer/marketing/api/list-activity/
-    // Non-required fields are "Merge fields", i.e. added fields that you can set to be required or not
-    // You can also change the tags
-    // Found in "Audience" > "All contacts" > Click into specific audience > "Settings" > "Audience fields and *|MERGE|* tags"
-
+    // Body parameters dictated by MailChimp: https://mailchimp.com/developer/transactional/api/messages/send-new-message/
+    // Also used this stackoverflow post to figure things out: https://stackoverflow.com/questions/66425375/mailchimp-mandrill-transactional-emails-how-to-add-custom-data-to-email-templ
+    
     const data = {
-        members: [
-            {
-                email_address: email,
-                status: 'subscribed',
-                merge_fields: {
-                    FNAME: firstName,
-                    LNAME: lastName
+        "key": `${process.env.mail_key}`,
+        "template_name": "momentary_paws",
+        "template_content": "",
+        "message": {
+            "text": `Your friend ${senderName} wanted you to know that they're thinking of you and believe in you.`,
+            "to": [
+                {
+                    "email": email,
+                    "type": "to",
                 }
-            }
-        ]
+            ]
+        }
     }
-
-    // can't be sent as an object; has to be a string
 
     const postData = JSON.stringify(data);
 
     // request to MailChimp API
     // will take in options and a function
+    // this seems like it will be useful for the collaborators email? https://mailchimp.com/developer/transactional/docs/templates-dynamic-content/#provide-merge-data-through-the-api
 
-    dotenv.config();
+    console.log(postData);
 
     const options = {
-        // "mail_dc" in the URL is my assigned Data Center, which i've stored in the .env file
-        // the data center can be found at the start of your URL when you're on your dashboard
-        // https://mailchimp.com/developer/marketing/docs/fundamentals/#connecting-to-the-api
-        // "mail_aud_id" in the URL is my Audience ID (or list_id), which I've stored in the .env file
-        // the audience ID can be found from your Dashboard:
-        // "Audience" > "Audience dashboard" > "Manage Audience" > "Settings" and it's at the bottom of the page
-        // or follow these steps: https://mailchimp.com/help/find-audience-id/ 
-        url: `https://${process.env.mail_dc}.api.mailchimp.com/3.0/lists/${process.env.mail_aud_id}`,
+        url: `https://mandrillapp.com/api/1.0/messages/send.json`,
         method: 'POST',
-        headers: {
-            Authorization: `Bearer ${process.env.mail_key}`
-        },
         body: postData
     }
 
@@ -79,7 +112,8 @@ app.post('/signup', (req, res) => {
         } else {
             // Check for response status code
             if(response.statusCode === 200) {
-                res.redirect('/success.html');
+                console.log(response.statusCode)
+                // res.redirect('/success.html');
             } else {
                 res.redirect('/fail.html');
                 console.log(`error with API status code:`, response.statusCode)
@@ -87,6 +121,7 @@ app.post('/signup', (req, res) => {
         }
     });
 })
+
 
 const PORT = process.env.PORT || 5002;
 

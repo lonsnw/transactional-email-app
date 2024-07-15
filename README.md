@@ -21,6 +21,8 @@ I did not ultimately use the MailChimp library, though I did install it.
 
 ## Screenshots
 
+Landing page:
+<center><image src=public/images/momentary-paws.png width=80%></center>
 
-
+GIF included in email:
 <center><image src=public/images/can-do-it-pink.gif width=80%></center>

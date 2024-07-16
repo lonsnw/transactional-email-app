@@ -12,49 +12,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Static folder to serve HTML files from public folder
 app.use(express.static(path.join(__dirname, 'public')))
 
-// // Send route
-// app.post('/send', (req, res) => {
-//     const {
-    //     senderName, 
-    //     recipientName, 
-    //     email
-    // } = req.body;
-    // // Validating form
-    // if(!senderName || !recipientName || !email) {
-    //     res.redirect('/fail.html');
-    //     return;
-//     }
-
-//     // Building request data -- I'm guessing this based on the newsletter app and 
-//     // the sample call MailChimp gives https://mailchimp.com/developer/transactional/guides/send-first-email/ 
-    
-//     const mailchimp = require("mailchimp_transactional")(
-//         `${process.env.mail_key}`
-//       );
-
-//     const message = {
-//         from_email: "gif@lons.dev",
-//         subject: `${senderName} is thinking of you!`,
-//         text: `${recipientName}, you're the best.`,
-//         to: [
-//             {
-//                 email: email,
-//                 type: "to"
-//             }
-//         ]
-//     };
-
-//     async function run() {
-//         const response = await mailchimp.messages.send({
-//           message
-//         });
-//         console.log(response);
-//       }
-//       run();
-
-      
-// })
-
 // Email route
 app.post('/email', (req, res) => {
     const {
@@ -76,14 +33,28 @@ app.post('/email', (req, res) => {
     
     const data = {
         "key": `${process.env.mail_key}`,
-        "template_name": "momentary_paws",
-        "template_content": "",
+        "template_name": "momentary-paws",
+        // "template_content": "",
+        "template_content": [
+            {
+                "name": "recipient_name",
+                "content": recipientName
+            },
+            {
+                "name": "sender_name",
+                "content": senderName
+            }
+        ],
         "message": {
             "text": `Your friend ${senderName} wanted you to know that they're thinking of you and believe in you.`,
+            "subject": "Take a momentary paws",
+            "from_email": "gif@lons.dev",
+            "from_name": senderName,
             "to": [
                 {
                     "email": email,
-                    "type": "to",
+                    "name": recipientName,
+                    "type": "to"
                 }
             ]
         }
@@ -98,7 +69,7 @@ app.post('/email', (req, res) => {
     console.log(postData);
 
     const options = {
-        url: `https://mandrillapp.com/api/1.0/messages/send.json`,
+        url: `https://mandrillapp.com/api/1.0/messages/send-template.json`,
         method: 'POST',
         body: postData
     }

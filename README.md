@@ -21,8 +21,13 @@ I did not ultimately use the MailChimp library, though I did install it.
 
 ## Screenshots
 
-Landing page:
+### Landing page:
 <center><image src=public/images/momentary-paws.png width=80%></center>
 
-GIF included in email:
-<center><image src=public/images/can-do-it-pink.gif width=80%></center>
+### Email as it appears in the inbox: 
+
+Blurb with preview:
+<center><image src=public/images/email-preview.png width=80%></center>
+
+Email once opened:
+<center><image src=public/images/email-in-inbox.gif width=80%></center>

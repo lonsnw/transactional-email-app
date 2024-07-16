@@ -28,7 +28,7 @@ app.post('/email', (req, res) => {
     dotenv.config();
 
     // Building request data
-    // Body parameters dictated by MailChimp: https://mailchimp.com/developer/transactional/api/messages/send-new-message/
+    // Body parameters dictated by MailChimp: https://mailchimp.com/developer/transactional/api/messages/send-using-message-template/
     // Also used this stackoverflow post to figure things out: https://stackoverflow.com/questions/66425375/mailchimp-mandrill-transactional-emails-how-to-add-custom-data-to-email-templ
     
     const data = {
@@ -79,12 +79,10 @@ app.post('/email', (req, res) => {
     request(options, (err, response, body) => {
         if(err) {
             res.redirect('/fail.html');
-            console.log(`immediate error`)
         } else {
             // Check for response status code
             if(response.statusCode === 200) {
-                console.log(response.statusCode)
-                // res.redirect('/success.html');
+                res.redirect('/success.html');
             } else {
                 res.redirect('/fail.html');
                 console.log(`error with API status code:`, response.statusCode)

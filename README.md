@@ -4,7 +4,7 @@ This is a very simple app built to test sending an inspirational HTML email usin
 
 The app is built using HTML and JavaScript.  I built on the [MailChimp marketing app I built](https://github.com/lonsnw/mailchimp-app) and used the MailChimp docs to use the transactional API instead of the marketing API used in the newsletter app.
 
-I did not ultimately use the MailChimp library, though I did install it.
+__This branch is a version I built out to accommodate a demo for a [client project](https://github.com/memento-box/memento-box) I worked on with a group__
 
 ## Technologies
 

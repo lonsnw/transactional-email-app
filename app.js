@@ -50,13 +50,13 @@ app.post('/email', (req, res) => {
             },
             {
                 "name": "box_url",
-                "content": `<a href="http://localhost:5173/#/recipientbox" target="_blank"> <img src="https://lons.dev/white-red-ribbon.png" alt="A white gift box with a bright red ribbon" style="width:50%"> </a>`
+                "content": `<a href="http://localhost:5173/#/recipientbox/1" target="_blank"> <img src="https://lons.dev/white-red-ribbon.png" alt="A white gift box with a bright red ribbon" style="width:50%"> </a>`
             }
         ],
         "message": {
             "text": `Your friends have sent you a Memento Box!  Follow this link to view the box: http://localhost:5173/#/recipientbox.`,
             "subject": `${recipientName}, you've received a Memento Box!`,
-            "from_email": "demo@lons.dev",
+            "from_email": `${process.env.FROM_EMAIL}`,
             "from_name": "Memento Box",
             "to": [
                 {

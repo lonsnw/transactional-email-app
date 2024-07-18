@@ -22,7 +22,7 @@
           <!-- This is how we're handling this on the server: POST request to /signup -->
           <form action="/email" method="POST">
             <div class="form-group">
-              <input type="text" name="greeting" id="greeting" class="form-control" placeholder="Greeting (e.g. 'Happy Birthday')"
+              <input type="text" name="occasionGreeting" id="greeting" class="form-control" placeholder="Greeting (e.g. 'Happy Birthday')"
                 required />
             </div>
             <div class="form-group">
@@ -34,7 +34,7 @@
                 required />
             </div>
             <div class="form-group">
-              <input type="email" name="email" id="email" class="form-control" placeholder="Your friend's email" required />
+              <input type="email" name="recipientEmail" id="email" class="form-control" placeholder="Your friend's email" required />
             </div>
             <br />
             <button type="submit" class="btn btn-primary btn-block">

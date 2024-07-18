@@ -15,12 +15,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Email route
 app.post('/email', (req, res) => {
     const {
+        occasionGreeting,
         senderName, 
         recipientName, 
-        email
+        recipientEmail
     } = req.body;
     // Validating form
-    if(!senderName || !recipientName || !email) {
+    if(!occasionGreeting || !senderName || !recipientName || !recipientEmail) {
         res.redirect('/fail.html');
         return;
     }
@@ -32,32 +33,40 @@ app.post('/email', (req, res) => {
     // Also used this stackoverflow post to figure things out: https://stackoverflow.com/questions/66425375/mailchimp-mandrill-transactional-emails-how-to-add-custom-data-to-email-templ
     
     const data = {
-        "key": `${process.env.mail_key}`,
-        "template_name": "momentary-paws",
-        // "template_content": "",
+        "key": `${process.env.TRANSACTIONAL_KEY}`,
+        "template_name": "memento-box-gift-notif",
         "template_content": [
+            {
+                "name": "occasion_greeting",
+                "content": occasionGreeting
+            },
+            {
+                "name": "sender_name",
+                "content": senderName
+            },
             {
                 "name": "recipient_name",
                 "content": recipientName
             },
             {
-                "name": "sender_name",
-                "content": senderName
+                "name": "box_url",
+                "content": `<a href="http://localhost:5173/#/recipientbox" target="_blank"> <img src="https://lons.dev/white-red-ribbon.png" alt="A white gift box with a bright red ribbon" style="width:50%"> </a>`
             }
         ],
         "message": {
-            "text": `Your friend ${senderName} wanted you to know that they're thinking of you and believe in you.`,
-            "subject": "Take a momentary paws",
-            "from_email": "gif@lons.dev",
-            "from_name": senderName,
+            "text": `Your friends have sent you a Memento Box!  Follow this link to view the box: http://localhost:5173/#/recipientbox.`,
+            "subject": "You've received a Memento Box!",
+            "from_email": "box@memento.com",
+            "from_name": "Memento Box",
             "to": [
                 {
-                    "email": email,
+                    "email": recipientEmail,
                     "name": recipientName,
                     "type": "to"
                 }
             ]
-        }
+        },
+        "send_at": ""
     }
 
     const postData = JSON.stringify(data);

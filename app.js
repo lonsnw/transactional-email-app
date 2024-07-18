@@ -55,8 +55,8 @@ app.post('/email', (req, res) => {
         ],
         "message": {
             "text": `Your friends have sent you a Memento Box!  Follow this link to view the box: http://localhost:5173/#/recipientbox.`,
-            "subject": "You've received a Memento Box!",
-            "from_email": "box@memento.com",
+            "subject": `${recipientName}, you've received a Memento Box!`,
+            "from_email": "demo@lons.dev",
             "from_name": "Memento Box",
             "to": [
                 {
